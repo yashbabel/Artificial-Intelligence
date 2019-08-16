@@ -1,0 +1,53 @@
+# Artificial-Intelligence
+Python codes to implement some of the basic Artificial Intelligence problems
+import sys
+graph={}
+n=int(input("enter number of cities "))
+
+for i in range(n):
+    l=[]
+    key=input("enter name of city ")
+    c=int(input("enter number of cities conected to "+key+" "))
+    for i in range(c):
+        l.append(input("enter the name of city connected to "+key+" "))
+    graph[key]=l
+    
+    
+def bfs(graph,tree,source,destination):
+    if source==destination:
+        print(source)
+        tree.append(source)
+        sys.exit()
+    else:
+        print(source)
+        tree.append(source)
+        for i in graph[source]:
+            if i==destination:
+                print(i)
+                sys.exit()
+                
+            elif i not in tree:
+                print(i)
+                tree.append(i)
+        for j in tree:
+            for k in graph[j]:
+                if k==destination:
+                    print(k)
+                    sys.exit()
+                elif k not in tree:
+                    print(k)
+                    tree.append(k)
+                
+                
+    return tree
+                
+                
+                    
+                            
+                
+
+tree=[]
+src=input("enter the source city")
+destination=input("enter the destination city")
+bfs(graph,tree,src,destination)
+print(tree)
