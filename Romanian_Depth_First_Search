@@ -1,0 +1,33 @@
+
+import sys
+graph={}
+n=int(input("enter number of cities"))
+
+for i in range(n):
+    l=[]
+    key=input("enter name of city")
+    c=int(input("enter number of cities conected to"+key))
+    for i in range(c):
+        l.append(input("enter the name of city connected to"+key))
+    graph[key]=l
+    
+    
+    
+
+
+def dfs(graph,node,tree,destination):
+    if node==destination:
+        print(node)
+        sys.exit()
+    elif node not in tree:
+        print(node)
+        tree.append(node)
+        for i in graph[node]:
+             dfs(graph,i,tree,destination)
+    return tree
+    
+source=print("enter source city")
+destination=print("enter destination")
+tree=dfs(graph,source,[],destination)    
+print(tree)
+         
