@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul 25 09:00:36 2019
+
+@author: Yash
+"""
+visited=[]
+l1=[]
+l2=[]
+l3=[]
+h={
+   'arad':366,
+   'zerind':374,
+   'oradea':380,
+   'sibiu':253,
+   'fagaras':176,
+   'bucharest':0,
+   'rimnicu':193,
+   'pitesti':100
+   }
+graph={
+       'arad':['zerind','sibiu'],
+       'zerind':['arad','oradea'],
+       'oradea':['zerind','sibiu'],
+       'sibiu':['arad','oradea','fagaras','rimnicu'],
+       'fagaras':['sibiu','bucharest'],
+       'bucharest':['fagaras','pitesti'],
+       'rimnicu':['sibiu','pitesti'],
+       'pitesti':['bucharest','rimnicu']
+}
+g={
+       'arad':[75,140],
+       'zerind':[75,71],
+       'oradea':[71,151],
+       'sibiu':[140,151,99,80],
+       'fagaras':[99,211],
+       'bucharest':[211,101],
+       'rimnicu':[80,97],
+       'pitesti':[101,97]
+   }
+def a_star(src,dest,x,l1,l2,l3):
+    
+        
+    
+        if src==dest:
+            print("destination reached")
+            return True
+        else:
+            for i in range (0,len(g[src])):
+                
+                l2.append(graph[src][i])
+                l1.append(x+g[src][i]+h[graph[src][i]])
+                l3.append(g[src][i]+x)
+            print(l1,l2,l3)
+                
+            temp=l2[l1.index(min(l1))] 
+            x=l3[l1.index(min(l1))]
+            print(l1.index(min(l1)),temp,x)
+            l2.remove(temp)
+            l1.pop(l1.index(min(l1)))
+            l3.remove(x)
+            print(l1,l2,l3)
+            print()
+            return a_star(temp,dest,x,l1,l2,l3)
+
+a_star('arad','bucharest',0,l1,l2,l3)
