@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul 21 23:49:45 2019
+
+@author: Yash
+"""
+
+tree=[]
+graph={
+       'A':['B','C'],
+       'B':['A','D','E'],
+       'C':['A','F'],
+       'D':['B','G','H'],
+       'E':['B','J','F'],
+       'F':['C','E','K','L'],
+       'G':['D','I'],
+       'H':['D'],
+       'I':['G'],
+       'J':['E'],
+        'K':['F'],
+        'L':['F']}
+def SEARCH(src,target,maxDepth,tree): 
+        if src not in tree:
+            tree.append(src)
+        if src == target :
+            
+            print(tree)
+            print("Destination reached")
+
+            return True
+        if maxDepth <= 0 :
+            print(tree)
+            return False
+        for i in graph[src]:
+                if i not in tree:
+                    tree.append(i)
+                
+                    if(SEARCH(i,target,maxDepth-1,tree)): 
+                        return True
+                        #if i not in tree:
+                            #tree.append(i)
+        return False
+
+for i in range(1,7,1):
+    x=SEARCH('F','I',i,tree)
+    print(x)
+    if x==True:
+        print("Node found at level",i-1)
+        break
+    else:
+        print("can't find at",i-1)
+    tree=[]
+
