@@ -1,0 +1,86 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 19 16:45:42 2019
+
+@author: Yash
+"""
+
+
+
+        
+  
+columns = []
+
+def place_in_next_row(column):
+    columns.append(column)
+ 
+def remove_in_current_row():
+    return columns.pop()
+ 
+def is_this_column_safe_in_next_row(size,column):
+ 
+    row = len(columns) 
+#    print(row)
+    for queen_column in columns:
+        if column == queen_column:
+            return False  
+    for queen_row, queen_column in enumerate(columns):
+#        print(queen_row," ",queen_column)
+        if queen_column - queen_row == column - row:
+            return False
+    for queen_row, queen_column in enumerate(columns):
+        if ((size - queen_column) - queen_row == (size - column) - row):
+            return False
+ 
+    return True
+ 
+def display(size):
+    print(columns)
+    for row in range(size):
+        for column in range(size):
+            if column == columns[row]:
+                print('Q', end=' ')
+            else:
+                print('.', end=' ')
+        print()
+ 
+ 
+def solve_queen(size):
+    
+    number_of_solutions = 0
+ 
+    row = 0
+    column = 0
+    
+    while True:
+        
+        while column < size:
+            if is_this_column_safe_in_next_row(size,column):
+                place_in_next_row(column)
+                row += 1
+                column = 0
+#                print(row," ",column)
+                break
+            else:
+                column += 1
+#                print(row," ",column)
+        if (column == size or row == size):
+            if row == size:
+                display(size)
+                print()
+                number_of_solutions += 1             
+                remove_in_current_row()
+                row -= 1  
+            try:
+                prev_column = remove_in_current_row()
+                print(prev_column)
+            except IndexError:
+                break
+            row -= 1
+            column = 1 + prev_column
+ 
+    print('Number of solutions:', number_of_solutions)
+ 
+ 
+n = int(input('Enter n: '))
+solve_queen(n)
