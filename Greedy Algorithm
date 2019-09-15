@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul 24 08:56:18 2019
+
+@author: Yash
+"""
+
+l1=[]
+valid=[]
+h={
+   'arad':366,
+   'zerind':374,
+   'oradea':380,
+   'sibiu':253,
+   'fagaras':77,
+   'bucharest':0,
+   'rimnicu':193,
+   'pitesti':100
+   }
+graph={
+       'arad':['zerind','sibiu'],
+       'zerind':['arad','oradea'],
+       'oradea':['zerind','sibiu'],
+       'sibiu':['arad','oradea','fagaras','rimnicu'],
+       'fagaras':['sibiu','bucharest'],
+       'bucharest':['fagaras','pitesti'],
+       'rimnicu':['sibiu','pitesti'],
+       'pitesti':['bucharest','rimnicu']
+}
+def gbfs(src,dest):
+    if src not in valid:
+        valid.append(src)
+    
+        if src==dest:
+            print("Destination Reached")
+            return True
+        else: 
+            l=[]
+            l1=[]
+            for i in graph[src]:
+                l.append(h[i])
+                l1.append(i)
+            print(l1)
+            print(l)
+            print(min(l),l1[l.index(min(l))])
+            temp=l1[l.index(min(l))]
+            return gbfs(temp,dest)
+    else:
+        print("DESTINATION DOES NOT EXIST ON THIS PATH OR IN A LOOP")
+src=input("enter the source")
+dest=input("enter the destination")   
+print(src)
+gbfs(src,dest)
